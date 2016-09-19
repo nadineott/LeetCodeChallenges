@@ -7,58 +7,51 @@
 // "1 a" => false
 // "2e10" => true
 
-var isNumber = function(s) {
-  var dec = false;
-  var before;
-  var after;
-  var nums = false;
-  var trueBeginning = true;
-  for (var i = 0; i < s.length; i++){
-    if (isNaN(parseInt(s[i]))) {
-        //ignore spaces if they're at the very beginning or very end
-      if (s[i] === " " && i === 0 && s.length > 0 && trueBeginning){
-          s = s.slice(1, s.length);
-          i--;
-          continue;
-      }
-      if(s[i] === " " && i !== 0) {
-          for (var k = i; k < s.length; k++){
-            if (s[k] !== " "){
-              console.log("space in the middle")
-              return false;
+var isNumber = function(s){
+  while (s[0] === " "){
+    s = s.slice(1, s.length);
+  }
+  while (s[s.length-1] === " "){
+    s = s.slice(0, -1);
+  }
 
-            }
-          }
-          return nums;
-      }
-      if ((s[i] === "-" || s[i] === "+") && i === 0){
-        s = s.slice(1, s.length);
-        trueBeginning = false;
-        i--;
-        continue;
-      }
-      //make sure there's only one decimal and there are other things in string
-      if (s[i] === "." && !dec && s.length !== 1){
+  var legitNumber = function(num, allowDecimals){
+    if (!allowDecimals && num.indexOf(".") !== -1){
+      return false;
+    }
+    var dec = false;
+    if (num[0] === "+" || num[0] === "-"){
+      num = num.slice(1, num.length);
+    }
+    for (var i = 0; i < num.length; i++){
+      if (num[i] === "." && !dec && allowDecimals){
         dec = true;
-        after = true;
-        before = false;
         continue;
-      //make sure e is preceeded + followed by numbers
-      } if (s[i] === "e" && (i > 0 && i < s.length) && before && i !== s.length-1){
-          for (var j = i+1; j < s.length; j++){
-              if (isNaN(parseInt(s[j]))){ return false;}
-          }
-          return true;
-      }
-      else {
-        console.log("early return")
+      } else if (num[i] === "." && dec){
+        return false;
+      } else if (isNaN(parseInt(num[i]))){
         return false;
       }
     }
-    else {
-      before = true;
-      nums = true;
+    if (dec && num.length === 1){
+      return false;
+    } else if (!dec && num.length === 0){
+      return false;
+    }else {
+      return true;
     }
   }
-  return nums;
-};
+
+  var e = s.indexOf("e");
+  if (e === -1){
+    return legitNumber(s, true);
+  } else {
+    var arrs = s.split("e");
+    if (arrs.length > 2){
+      return false;
+    }
+    var first = legitNumber(arrs[0], true);
+    var second = legitNumber(arrs[1], false);
+    return (first === true && second === true)
+  }
+}
