@@ -1,4 +1,5 @@
 // Validate if a given string is numeric.
+//NOTE- I would have LOVED to have thought of this problem when I was teaching. I would love nothing more than to explain edge cases to an into intro group, drop this edge case bomb on them, and watch them recoil in terror.
 
 // Some examples:
 // "0" => true
