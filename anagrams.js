@@ -1,3 +1,5 @@
+// Given two strings, return true if one string is an anagram of another.
+
 function isAnagram (a, b) {
   //take out spaces and cases of both strings
   var removeSpaceAndCase = function(str, newString) {
