@@ -35,3 +35,38 @@ function isAnagram (a, b) {
   }
   return false;
 }
+
+
+//ALTERNATIVE, JUST DID THIS AGAIN AND I THINK THE ANSWER BELOW IS MORE INTUITIVE
+
+var isAnagram = function(str1, str2){
+  var word1 = str1.split("");
+  var word2 = str2.split("");
+
+  var removeSpaceAndCapitlization = function(arr){
+    for (var j = 0; j < arr.length; j++){
+      if (arr[j] === " "){
+        arr.splice(j, 1);
+        j--;
+      } else {
+        arr[j] = arr[j].toLowerCase();
+      }
+    }
+    return arr;
+  }
+  word1 = removeSpaceAndCapitlization(word1);
+  word2 = removeSpaceAndCapitlization(word2);
+  for (var i = 0; i < word1.length; i++){
+    var current = word1[i];
+    var word2Index = word2.indexOf(current);
+    if (word2Index === -1){
+      return false;
+    } else {
+      word2.splice(word2Index, 1);
+    }
+  }
+  if (word2.length === 0){
+    return true;
+  }
+  return false;
+}
