@@ -2,6 +2,7 @@
 
 // For example, given the array [2,3,-2,4],
 // the contiguous subarray [2,3] has the largest product = 6
+//Accidently did this with sum first and couldn't figure out why it wasn't working. Silly mistake.
 
 var maxProduct = function(nums) {
     var max = Number.NEGATIVE_INFINITY;
