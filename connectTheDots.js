@@ -22,32 +22,39 @@ var findDiagonals = function(arr){
   console.log("DIAGONALS")
   var storage = {};
   var max = 0;
-    //diagonal lines:
-      //find all combinations of 2 points that don't share x or y
     for (var i = 0; i < arr.length; i++){
+      //console.log("new i ", i);
       var firstX = arr[i][0];
+      //console.log("first X ", firstX)
       var firstY = arr[i][1];
       for (var j = 0; j < arr.length; j++){
         var secondX = arr[j][0];
+        //console.log("secondX ", secondX)
         var secondY = arr[j][1];
         if (i !== j && firstX !== secondX && firstY !== secondY){
-          var slope = (firstX-secondX)/(firstY-secondY);
+          //console.log("arr[i] ", arr[i], " arr[j] ", arr[j])
+          var slope = firstX-secondX/firstY-secondY;
+          //console.log("slope: ", slope)
           var yInt = -1*((slope*firstX)-firstY);
+          //console.log("yInt ", yInt)
           var slopeInt = ""+slope+yInt;
-          if (!storage[slopeInt]){
+          //console.log("slopeInt ", slopeInt)
+          //console.log("slopeInt: ", slopeInt)
+          if (storage[slopeInt] === undefined){
             storage[slopeInt] = 1;
           } else {
             storage[slopeInt] = storage[slopeInt]+1;
           }
+          //console.log("storage ", storage)
         }
       }
     }
+    console.log("storage ", storage)
     for (var key in storage){
       if (storage[key] > max){
         max = storage[key];
       }
     }
-    console.log(max)
     return max;
       //determine slope and y intercept that two points make
       //create array of all points with same slope and y-int
@@ -74,9 +81,9 @@ var findLines = function(arr, num){
   return max;
 }
 
-console.log("expect 3 ", maxPoints([0,1], [9,12], [0,2], [0,6], [9, 15]))
-console.log("expect 0 ", maxPoints([]));
-console.log("expect 1 ", maxPoints([2,4]))
-console.log("expect 2 ", maxPoints([2,5], [3,7]))
+// console.log("expect 3 ", maxPoints([0,1], [9,12], [0,2], [0,6], [9, 15]))
+// console.log("expect 0 ", maxPoints([]));
+// console.log("expect 1 ", maxPoints([2,4]))
+// console.log("expect 2 ", maxPoints([2,5], [3,7]))
 console.log("expect 5 (diagonal)", maxPoints([1,4], [2,3], [3,2], [4,1], [5,0]))
-console.log("expect 3 (diagonal) ", maxPoints ([1,1], [2,2], [4,4], [3,13], [19,20]))
+// console.log("expect 3 (diagonal) ", maxPoints ([1,1], [2,2], [4,4], [3,13], [19,20]))
