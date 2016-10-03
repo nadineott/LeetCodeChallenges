@@ -42,7 +42,7 @@ var fullJustify = function(words, maxWidth) {
     }
     var spaces = maxWidth - opportunities - wordLengths;
     var average = spaces/opportunities;
-    if (Number.isInteger(average)){
+    if (Number.isInteger(average) || spaces === 0 && opportunities === 0){
       var s = makeSpaces(average);
       current = current.join(s);
       answer.push(current);
