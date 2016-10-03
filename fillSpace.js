@@ -1,4 +1,12 @@
 var fullJustify = function(words, maxWidth) {
+  //edge case of empty words
+  if (words.length === 1 && words[0] === ""){
+    var ans = "";
+    for (var q = 0; q < maxWidth; q++){
+      ans+= " ";
+    }
+    return [ans];
+  }
   var lines = [];
   var line = [];
   var lineLength = 0;
@@ -47,10 +55,7 @@ var fullJustify = function(words, maxWidth) {
       var moreCount = 0;
       var lessCount = 0;
       var alternate = 2;
-      console.log("lessSpaces ", lessSpaces);
-      console.log("moreSpaces ", moreSpaces);
       while (spaces > 0){
-        console.log("spaces ", spaces)
         if (spaces === lessCount){
           lessCount++;
           spaces = 0;
@@ -67,8 +72,6 @@ var fullJustify = function(words, maxWidth) {
           alternate++;
         }
       }
-      console.log("moreCount = ", moreCount)
-      console.log("lessCount = ", lessCount)
       var currentLine = current[0];
       for (var n = 1; n < moreCount+1; n++){
         currentLine = currentLine + moreSpaces + current[n];
@@ -83,13 +86,9 @@ var fullJustify = function(words, maxWidth) {
   var last = lines[lines.length-1];
   var lastLine = last.join(" ");
   var difference = maxWidth - lastLine.length;
-    console.log("difference ", difference)
   for (var a = 0; a < difference.length; a++){
     lastLine+= " ";
   }
   answer.push(lastLine);
   return answer;
 }
-
-
-console.log(fullJustify(["This", "is", "an", "example", "of", "text", "justification."], 16));
