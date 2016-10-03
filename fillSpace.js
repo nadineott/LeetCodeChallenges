@@ -20,8 +20,6 @@ var fullJustify = function(words, maxWidth) {
     }
   }
   lines.push(line);
-
-  //last line is treated differently- just add extra spaces as needed at end
   for (var i = 0; i < lines.length-1; i++){
     var current = lines[i];
     var opportunities = current.length -1;
@@ -39,18 +37,20 @@ var fullJustify = function(words, maxWidth) {
       current = current.join(s);
       answer.push(current);
     } else {
-      var more = Math.ceil(average);
       var less = Math.floor(average);
       var lessSpaces = "";
-      for (var y = 0; y < less; y++){
+      for (var y = 0; y <= less; y++){
         lessSpaces = lessSpaces + " ";
       }
       var moreSpaces = lessSpaces+" ";
-      var combined = less+more;
+      var combined = less*2+1;
       var moreCount = 0;
       var lessCount = 0;
       var alternate = 2;
+      console.log("lessSpaces ", lessSpaces);
+      console.log("moreSpaces ", moreSpaces);
       while (spaces > 0){
+        console.log("spaces ", spaces)
         if (spaces === lessCount){
           lessCount++;
           spaces = 0;
@@ -63,10 +63,12 @@ var fullJustify = function(words, maxWidth) {
           alternate++;
         } else {
           spaces = spaces - lessCount;
-          lessCount--;
+          lessCount++;
           alternate++;
         }
       }
+      console.log("moreCount = ", moreCount)
+      console.log("lessCount = ", lessCount)
       var currentLine = current[0];
       for (var n = 1; n < moreCount+1; n++){
         currentLine = currentLine + moreSpaces + current[n];
@@ -74,15 +76,18 @@ var fullJustify = function(words, maxWidth) {
       for (var m = moreCount; m < lessCount+1; m++){
         currentLine = currentLine + lessSpaces + current[m];
       }
-      currentLine += current[current.length-1];
+      answer.push(currentLine);
     }
-    answer.push(currentLine);
+
   }
-  //deal with last line
-
-  //for all other lines, length-1 is the number of opportunities for spaces
-  //maxWidth - word lengths - opportunities(which will represent one space each to start) is the number of spaces that need to be inserted
-
+  var last = lines[lines.length-1];
+  var lastLine = last.join(" ");
+  var difference = maxWidth - lastLine.length;
+    console.log("difference ", difference)
+  for (var a = 0; a < difference.length; a++){
+    lastLine+= " ";
+  }
+  answer.push(lastLine);
   return answer;
 }
 
