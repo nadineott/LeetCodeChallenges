@@ -39,11 +39,44 @@ var fullJustify = function(words, maxWidth) {
       current = current.join(s);
       answer.push(current);
     } else {
+      var more = Math.ceil(average);
       var less = Math.floor(average);
-      var more = Math.ceiling(average);
-      //put more on left side and less on right side, if opportunities-2 is 0 then we're good!
-      //if more+less is an integer then
+      var lessSpaces = "";
+      for (var y = 0; y < less; y++){
+        lessSpaces = lessSpaces + " ";
+      }
+      var moreSpaces = lessSpaces+" ";
+      var combined = less+more;
+      var moreCount = 0;
+      var lessCount = 0;
+      var alternate = 2;
+      while (spaces > 0){
+        if (spaces === lessCount){
+          lessCount++;
+          spaces = 0;
+        } else if (spaces === moreCount){
+          moreCount++;
+          spaces = 0;
+        } else if (alternate%2 === 0){
+          spaces = spaces - moreCount;
+          moreCount++;
+          alternate++;
+        } else {
+          spaces = spaces - lessCount;
+          lessCount--;
+          alternate++;
+        }
+      }
+      var currentLine = current[0];
+      for (var n = 1; n < moreCount+1; n++){
+        currentLine = currentLine + moreSpaces + current[n];
+      }
+      for (var m = moreCount; m < lessCount+1; m++){
+        currentLine = currentLine + lessSpaces + current[m];
+      }
+      currentLine += current[current.length-1];
     }
+    answer.push(currentLine);
   }
   //deal with last line
 
@@ -51,7 +84,7 @@ var fullJustify = function(words, maxWidth) {
   //maxWidth - word lengths - opportunities(which will represent one space each to start) is the number of spaces that need to be inserted
 
   return answer;
-};
+}
 
 
 console.log(fullJustify(["This", "is", "an", "example", "of", "text", "justification."], 16));
