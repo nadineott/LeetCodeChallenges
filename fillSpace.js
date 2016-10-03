@@ -1,10 +1,15 @@
+var makeSpaces = function(x){
+  var ans = "";
+  for (var i = 0; i < x; i++){
+    ans+=" ";
+  }
+  return ans;
+}
+
 var fullJustify = function(words, maxWidth) {
   //edge case of empty words
   if (words.length === 1 && words[0] === ""){
-    var ans = "";
-    for (var q = 0; q < maxWidth; q++){
-      ans+= " ";
-    }
+    var ans = makeSpaces(maxWidth)
     return [ans];
   }
   var lines = [];
@@ -38,18 +43,12 @@ var fullJustify = function(words, maxWidth) {
     var spaces = maxWidth - opportunities - wordLengths;
     var average = spaces/opportunities;
     if (Number.isInteger(average)){
-      var s = "";
-      for (var k = 0; k < average; k++){
-        s = s + " ";
-      }
+      var s = makeSpaces(average);
       current = current.join(s);
       answer.push(current);
     } else {
       var less = Math.floor(average);
-      var lessSpaces = "";
-      for (var y = 0; y <= less; y++){
-        lessSpaces = lessSpaces + " ";
-      }
+      var lessSpaces = makeSpaces(less);
       var moreSpaces = lessSpaces+" ";
       var combined = less*2+1;
       var moreCount = 0;
@@ -86,9 +85,7 @@ var fullJustify = function(words, maxWidth) {
   var last = lines[lines.length-1];
   var lastLine = last.join(" ");
   var difference = maxWidth - lastLine.length;
-  for (var a = 0; a < difference.length; a++){
-    lastLine+= " ";
-  }
+  lastLine+= makeSpaces(difference);
   answer.push(lastLine);
   return answer;
 }
