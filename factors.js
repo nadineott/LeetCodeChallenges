@@ -14,15 +14,21 @@ var getFactors = function(n) {
         if (product > n){
           return;
         } else if (product === n){
-          var arr = str.split("");
+          var arr = str.split(",");
           arr.sort(function(a,b){return a-b});
           storage[arr] = 1;
           return;
         } else {
           for (var j = 0; j < options.length; j++){
-            var newProd = product*options[j]
-            var newStr = str+options[j]
+            var newProd = product*options[j];
+            var newStr = 1;
+            if (product === 1){
+              newStr = str+options[j];
+            } else {
+              newStr = str+","+options[j]
+            }
             permutate(newStr, newProd)
+
           }
         }
     }
