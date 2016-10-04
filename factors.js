@@ -39,3 +39,11 @@ var getFactors = function(n) {
   }
     return answer;
 };
+
+console.log("expect [] ", getFactors(1));
+
+console.log("expect [] ", getFactors(37));
+
+console.log("expect [[2, 6],[2, 2, 3],[3, 4]] ", getFactors(12));
+
+console.log("expect [[2, 16],[2, 2, 8],[2, 2, 2, 4],[2, 2, 2, 2, 2],[2, 4, 4],[4, 8]] ", getFactors(32));
