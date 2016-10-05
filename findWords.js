@@ -23,23 +23,28 @@ var findAllOccurances = function(letter, board){
 var findWords = function(board, words) {
   var answer = [];
 
-  var recurse = function(word, index, possibleIndeces){
-    console.log("recursing on ", word);
-    console.log("at index ", index);
-    console.log("possibleIndeces are ", possibleIndeces)
-    if (index === word.length-1){
+  var recurse = function(word, ind, possibleIndeces){
+    console.log("-------------------");
+    //console.log("possibleIndeces are ", possibleIndeces)
+    if (ind === word.length-1){
       answer.push(word);
       return;
     } else {
-      var next = word[index];
-      console.log("next ", next);
+      var next = word[ind];
+      console.log("NEXT IS ", next);
       for (var i = 0; i < possibleIndeces.length; i++){
-        if (board[possibleIndeces[i][0]][possibleIndeces[i][1]] !== next){
-          return;
+        console.log("i is ", i)
+        console.log("NEXT SHOULD BE EXACTLY THE SAME ", next)
+        console.log("option ", board[possibleIndeces[i][0]][possibleIndeces[i][1]])
+
+        if (board[possibleIndeces[i][0]][possibleIndeces[i][1]] === next){
+          console.log("MATCH");
+          recurse(word, ind+1, touchPoints(possibleIndeces[i]));
         } else {
-          recurse(word, index+1, touchPoints(possibleIndeces[i]));
+          console.log("NO MATCH")
+          return;
         }
-    }
+      }
     }
 
 
@@ -64,10 +69,11 @@ var board = [
   ['i','f','l','v']
 ];
 
-var words = ["oath","pea","eat","rain"];
+// var words = ["oath","pea","eat","rain"];
 //var words = ["eat"];
+var words = ["oath"]
 
-console.log("expect eat", findWords(board, words));
+console.log("expect oath", findWords(board, words));
 
 
 
