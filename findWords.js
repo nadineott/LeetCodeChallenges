@@ -1,4 +1,4 @@
-var touchPoints = function(x,y){
+var touchPoints = function([x,y]){
   var answer = [];
   var options = [x-1, y-1, x-1, y, x-1, y+1, x, y+1, x+1, y+1, x+1, y, x+1, y-1, x, y-1];
   for (var i = 0; i < options.length-1; i = i+2){
@@ -23,20 +23,22 @@ var findAllOccurances = function(letter, board){
 var findWords = function(board, words) {
   var answer = [];
 
-  var recurse = function(word, index, touchPoints){
-
+  var recurse = function(word, index, possibleIndeces){
+    console.log("recursing on ", word);
+    console.log("at index ", index);
+    console.log("possibleIndeces are ", possibleIndeces)
     if (index === word.length-1){
       answer.push(word);
+      return;
     } else {
       var next = word[index];
-      for (var i = 0; i < touchPoints; i++){
-      if (board[touchPoints[i]] !== next){
-        return;
-      } else {
-        recurse(word, index+1, touchPoints[touchPoints[i]]);
-      }
-      //if next letter occurs at touch point, continue down that stream
-      //else return
+      console.log("next ", next);
+      for (var i = 0; i < possibleIndeces.length; i++){
+        if (board[possibleIndeces[i][0]][possibleIndeces[i][1]] !== next){
+          return;
+        } else {
+          recurse(word, index+1, touchPoints(possibleIndeces[i]));
+        }
     }
     }
 
@@ -63,8 +65,9 @@ var board = [
 ];
 
 var words = ["oath","pea","eat","rain"];
+//var words = ["eat"];
 
-console.log("expect eat and oath ", findWords(board, words));
+console.log("expect eat", findWords(board, words));
 
 
 
