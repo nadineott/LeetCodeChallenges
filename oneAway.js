@@ -31,8 +31,10 @@ var oneAway = function(str1, str2){
         if (counter > 1){
           return false;
         }
+      } else {
+        str2.splice(str2.indexOf(current), 1);
       }
-      str2.splice(str2.indexOf(current), 1);
+
     }
     return true;
   }
