@@ -37,3 +37,13 @@ var oneAway = function(str1, str2){
     return true;
   }
 }
+
+
+console.log("expect true", oneAway("please", "pleas"))
+console.log("expect true", oneAway("please", "pleasee"))
+console.log("expect true", oneAway("please", "plense"))
+console.log("expect true", oneAway("", "a"))
+console.log("expect true", oneAway("b", "a"))
+console.log("expect false", oneAway("please", "pleaiq"))
+console.log("expect false", oneAway("please", "pleasepq"))
+console.log("expect false", oneAway("please", "plea8"))
