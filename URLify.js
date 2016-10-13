@@ -22,3 +22,8 @@ var URLify = function(str){
   var arrs = str2.split(" ");
   return arrs.join("%20");
 }
+
+
+
+console.log("expect Mr%20John%20Smith ", URLify("Mr John Smith"));
+console.log("expect sunny%20day ", URLify("  sunny day   "));
