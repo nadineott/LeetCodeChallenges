@@ -34,3 +34,9 @@ var merge = function(list1, list2){
   //if # already exists in list remove it
   return result;
 }
+
+console.log("expect [1,2,3,4,5,6] ", merge([1,2,4,6], [3, 4, 5]))
+console.log("expect [1,2,3,4,5,6] ", merge([1,3,5], [2,4,5,6]))
+console.log("expect [1,2,100,101] ", merge([1,2],[100,101]))
+console.log("expect [1,2,3] ", merge([1,2,3],[1,2,3]))
+console.log("expect [0,1,2,3]", merge([1,2,3], [0]))
