@@ -1,38 +1,39 @@
-// Merge two sorted lists.
-
 var merge = function(list1, list2){
-  //remove duplicates
-  var result = [];
-  while (list1.length+list2.length > 0){
-    if (list1.length === 0){
-      console.log("only list 2 left")
-      for (var n = 0; n < list2.length; n++){
-        result.push(list2[n]);
+  var results = [];
+  while (list1.length + list2.length > 0){
+
+    var short = list1;
+    var long = list2
+    //if one is 0 push all from 2nd to results
+    if (list1.length > list2.length){
+      long = list1;
+      short = list2;
+    }
+    if (short.length === 0){
+      for (var j = 0; j < long.length; j++){
+        results.push(long[j]);
+        long.shift();
+        j--;
       }
-      return result;
     }
-    if (list2.length === 0){
-      console.log("only list 1 left")
-      for (var m = 0; m < list1.length; m++){
-        result.push(list1[m]);
-      }
-      return result;
-    }
-    if (result.indexOf(list1[0]) > -1){
-      console.log("repeated number: ", list1[0]);
-      list1.shift();
-    }
-    if (list1[0] < list2[0]){
-      result.push(list1[0]);
-      list1.shift();
+    //if numbers are the same at 0, push 1 and shift it out of the other list2
+    else if (short[0] > long[0]){
+      results.push(long[0]);
+      long.shift();
     } else {
-      result.push(list2[0]);
-      list2.shift();
+      results.push(short[0]);
+      short.shift();
+    }
+    //else push lowest one and shift it out
+  }
+  for (var k = 0; k < results.length-1; k++){
+    if (results[k] === results[k+1]){
+      results.splice(k,1);
+      k--;
     }
   }
-  //start at beginning of each list, lowest item gets pushed + removed
-  //if # already exists in list remove it
-  return result;
+  //remove repeats
+  return results;
 }
 
 console.log("expect [1,2,3,4,5,6] ", merge([1,2,4,6], [3, 4, 5]))
